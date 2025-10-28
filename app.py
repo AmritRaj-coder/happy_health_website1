@@ -2,23 +2,26 @@ import os
 from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
 
-# ✅ Flask app with explicit paths (for Render compatibility)
+# ✅ Create Flask app with correct folder paths for Render
 app = Flask(
     __name__,
     template_folder=os.path.join(os.path.dirname(__file__), 'templates'),
     static_folder=os.path.join(os.path.dirname(__file__), 'static')
 )
 
-# Secret key for sessions
-app.secret_key = 'your_secret_key'
+# Secret key
+app.secret_key = 'super_secret_key'
 
-# ✅ Database setup
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///instance/database.db'
+# ✅ Database Configuration
+BASE_DIR = os.path.abspath(os.path.dirname(__file__))
+DB_PATH = os.path.join(BASE_DIR, 'instance', 'database.db')
+
+app.config['SQLALCHEMY_DATABASE_URI'] = f"sqlite:///{DB_PATH}"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
-# ✅ Database models
+# ✅ Database Models
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(100), nullable=False, unique=True)
@@ -43,27 +46,37 @@ def contact():
 @app.route('/appointment', methods=['GET', 'POST'])
 def appointment():
     if request.method == 'POST':
-        name = request.form['name']
-        email = request.form['email']
-        message = request.form['message']
-        new_appointment = Appointment(name=name, email=email, message=message)
-        db.session.add(new_appointment)
-        db.session.commit()
-        flash('Appointment submitted successfully!')
-        return redirect(url_for('home'))
+        name = request.form.get('name')
+        email = request.form.get('email')
+        message = request.form.get('message')
+
+        if name and email and message:
+            new_appointment = Appointment(name=name, email=email, message=message)
+            db.session.add(new_appointment)
+            db.session.commit()
+            flash('Appointment booked successfully!', 'success')
+            return redirect(url_for('home'))
+        else:
+            flash('Please fill all the fields!', 'error')
+
     return render_template('appointment.html')
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
-        username = request.form['username']
-        email = request.form['email']
-        password = request.form['password']
-        user = User(username=username, email=email, password=password)
-        db.session.add(user)
-        db.session.commit()
-        flash('Registration successful!')
-        return redirect(url_for('login'))
+        username = request.form.get('username')
+        email = request.form.get('email')
+        password = request.form.get('password')
+
+        if username and email and password:
+            user = User(username=username, email=email, password=password)
+            db.session.add(user)
+            db.session.commit()
+            flash('Registration successful! Please log in.', 'success')
+            return redirect(url_for('login'))
+        else:
+            flash('Please fill all the fields!', 'error')
+
     return render_template('register.html')
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -77,6 +90,7 @@ def admin():
 
 # ✅ Run
 if __name__ == '__main__':
+    os.makedirs(os.path.join(BASE_DIR, 'instance'), exist_ok=True)
     with app.app_context():
         db.create_all()
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)
