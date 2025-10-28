@@ -1,54 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Health Innovation Pvt. Ltd.</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
-    <header>
-        <h1>Happy Health Innovation Pvt. Ltd.</h1>
-        <nav>
-            <a href="#home">Home</a>
-            <a href="#about">About</a>
-            <a href="#services">Services</a>
-            <a href="#contact">Contact</a>
-        </nav>
-    </header>
-
-    <section id="home">
-        <h2>Welcome to Happy Health Innovation</h2>
-        <p>We create affordable, advanced healthcare innovations for a better tomorrow.</p>
-    </section>
-
-    <section id="about">
-        <h2>About Us</h2>
-        <p>Happy Health Innovation Pvt. Ltd. is a technology-driven health company focusing on research, development, and innovation to improve lives.</p>
-    </section>
-
-    <section id="services">
-        <h2>Your Services</h2>
-        <h3>Medical Device Development</h3>
-        <p>Building reliable, modern, and affordable health devices.</p>
-        <h3>Health Research & Analysis</h3>
-        <p>Our R&D team constantly innovates to make healthcare smarter.</p>
-        <h3>Wellness Programs</h3>
-        <p>We provide health workshops and awareness programs for preventive care.</p>
-    </section>
-
-    <section id="contact">
-        <h2>Contact Us</h2>
-        <form method="POST" action="{{ url_for('contact') }}">
-            <input type="text" name="name" placeholder="Your Name" required>
-            <input type="email" name="email" placeholder="Your Email" required>
-            <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
-            <button type="submit">Send Message</button>
-        </form>
-
-        {% if message_sent %}
-        <p style="color:green; margin-top:10px;">✅ Thank you! Your message has been sent successfully.</p>
-        {% endif %}
-    </section>
-</body>
-</html>
+{% extends "base.html" %}
+{% block title %}Home - Happy Health{% endblock %}
+{% block content %}
+  <section class="hero">
+    <img src="{{ url_for('static', filename='images/surgery.jpg') }}" alt="surgery" class="hero-img">
+    <div class="hero-text">
+      <h2>Medical & Surgical Solutions</h2>
+      <p>Affordable, reliable health innovations for a better tomorrow.</p>
+    </div>
+  </section>
+  <section class="cards">
+    <div class="card">
+      <h3>Device Development</h3>
+      <p>Building modern health devices.</p>
+    </div>
+    <div class="card">
+      <h3>Research</h3>
+      <p>Data-driven medical research.</p>
+    </div>
+    <div class="card">
+      <h3>Wellness</h3>
+      <p>Workshops and preventive care programs.</p>
+    </div>
+  </section>
+{% endblock %}

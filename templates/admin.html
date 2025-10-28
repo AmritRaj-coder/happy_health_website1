@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+  <h2>Admin Panel</h2>
+  <h3>Contacts</h3>
+  {% for c in contacts %}
+    <div class="item">
+      <strong>{{ c.name }}</strong> ({{ c.email }})<br>
+      {{ c.message|e }}<br>
+      <a href="{{ url_for('delete_contact', id=c.id) }}" onclick="return confirm('Delete?')">Delete</a>
+    </div>
+  {% else %}
+    <p>No messages yet.</p>
+  {% endfor %}
+
+  <h3>Appointments</h3>
+  {% for a in appointments %}
+    <div class="item">
+      <strong>{{ a.name }}</strong> — {{ a.date }}<br>
+      {{ a.issue|e }}<br>
+      <a href="{{ url_for('delete_appointment', id=a.id) }}" onclick="return confirm('Delete?')">Delete</a>
+    </div>
+  {% else %}
+    <p>No appointments yet.</p>
+  {% endfor %}
+{% endblock %}
