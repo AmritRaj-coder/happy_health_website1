@@ -1,25 +1,96 @@
-{% extends "base.html" %}
-{% block title %}Home - Happy Health{% endblock %}
-{% block content %}
-  <section class="hero">
-    <img src="{{ url_for('static', filename='images/surgery.jpg') }}" alt="surgery" class="hero-img">
-    <div class="hero-text">
-      <h2>Medical & Surgical Solutions</h2>
-      <p>Affordable, reliable health innovations for a better tomorrow.</p>
-    </div>
-  </section>
-  <section class="cards">
-    <div class="card">
-      <h3>Device Development</h3>
-      <p>Building modern health devices.</p>
-    </div>
-    <div class="card">
-      <h3>Research</h3>
-      <p>Data-driven medical research.</p>
-    </div>
-    <div class="card">
-      <h3>Wellness</h3>
-      <p>Workshops and preventive care programs.</p>
-    </div>
-  </section>
-{% endblock %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Health Innovation</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f7f9fc;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #0f5d91;
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: 500;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        .hero {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(135deg, #e0f7fa, #f1f8e9);
+        }
+        .hero img {
+            max-width: 80%;
+            border-radius: 20px;
+            margin-top: 20px;
+            box-shadow: 0px 4px 15px rgba(0,0,0,0.2);
+        }
+        .hero h1 {
+            font-size: 2.5em;
+            color: #0f5d91;
+        }
+        .hero p {
+            font-size: 1.2em;
+            color: #333;
+        }
+        .btn {
+            background-color: #0f5d91;
+            color: white;
+            padding: 10px 25px;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            display: inline-block;
+            margin-top: 20px;
+        }
+        .btn:hover {
+            background-color: #0a3c60;
+        }
+        footer {
+            background-color: #0f5d91;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h2>Happy Health Innovation</h2>
+        <nav>
+            <a href="{{ url_for('home') }}">Home</a>
+            <a href="{{ url_for('appointment') }}">Appointment</a>
+            <a href="{{ url_for('contact') }}">Contact</a>
+            <a href="{{ url_for('login') }}">Login</a>
+            <a href="{{ url_for('register') }}">Register</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>Welcome to Happy Health Innovation</h1>
+        <p>Your trusted partner in creating a healthier, smarter future 🌿</p>
+        <img src="{{ url_for('static', filename='images/health_team.png') }}" 
+             alt="Happy Health Innovation Team">
+        <br>
+        <a href="{{ url_for('appointment') }}" class="btn">Book Appointment</a>
+    </section>
+
+    <footer>
+        <p>© 2025 Happy Health Innovation Pvt. Ltd. | All Rights Reserved</p>
+    </footer>
+</body>
+</html>
