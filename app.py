@@ -50,4 +50,3 @@ def contact():
 
 if __name__ == '__main__':
     app.run(debug=True)
->>>>>>> 3d59f33616a93250947b8d45d8e34a560d6a2e2f
